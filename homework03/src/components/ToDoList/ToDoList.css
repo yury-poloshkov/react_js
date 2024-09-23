@@ -1,0 +1,22 @@
+.comments__title {
+  font-size: 24px;
+  display: flex;
+  font-style: italic;
+}
+.comments__item {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 10px 30px;
+  justify-content: space-between;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 5px;
+}
+.comments__item:hover {
+  background-color: gray;
+}
+.comments__button:hover {
+  color: red;
+}/*# sourceMappingURL=ToDoList.css.map */
