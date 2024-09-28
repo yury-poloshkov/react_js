@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./ToDoList.css";
 
 import * as React from "react";
 import { styled } from "@mui/material/styles";
@@ -13,16 +12,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-// function generate(element) {
-//     return [0, 1, 2].map((value) =>
-//         React.cloneElement(element, {
-//             key: value,
-//         })
-//     );
-// }
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 const Demo = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -30,33 +24,40 @@ const Demo = styled("div")(({ theme }) => ({
 
 function ToDoList({ data }) {
     const [toDoList, setToDoList] = useState([...data]);
-    // console.log(toDoList);
-    // const deleteComment = (event) => {
-    //     setCommentsList(commentsList.filter((comment) => +comment.id !== +event.target.dataset.keyid));
-    // };
-    // return (
-    //     <>
-    //         <ul className="comments__title">Список дел:</ul>
-    //         {commentsList.map((comment) => (
-    //             <div className="comments__item">
-    //                 <li key={comment.id}>{comment.text}</li>
-    //                 <button className="comments__button" onClick={deleteComment} data-keyid={comment.id}>
-    //                     Delete comment {comment.id}
-    //                 </button>
-    //             </div>
-    //         ))}
-    //     </>
-    // );
+    const [newToDoItem, setNewToDoItem] = useState("");
+    const [inputBoxNewToDoItem, setInputBoxNewToDoItem] = useState("none");
+
+    const showInputBox = () => {
+        setInputBoxNewToDoItem("block");
+    };
+
+    const hideInputBox = () => {
+        setInputBoxNewToDoItem("none");
+        clearNewToDoItem();
+    };
+
+    const clearNewToDoItem = () => {
+        setNewToDoItem("");
+    };
+
+    const inputNewToDoItem = (event) => {
+        setNewToDoItem(event.target.value);
+        console.log(newToDoItem);
+    };
 
     const addToDoItem = () => {
-        let newItemIndex = 1;
-        if (toDoList.length !== 0) newItemIndex = toDoList[toDoList.length - 1].id + 1;
-        setToDoList([...toDoList, { id: newItemIndex, text: "New Item to Do" }]);
+        if (newToDoItem.trim() > "") {
+            let newItemIndex = 1;
+            if (toDoList.length !== 0) newItemIndex = toDoList[toDoList.length - 1].id + 1;
+            setToDoList([...toDoList, { id: newItemIndex, text: newToDoItem }]);
+            clearNewToDoItem();
+        }
     };
 
     const deleteToDoItem = (event) => {
-        console.log(event.target);
-        setToDoList(toDoList.filter((toDoItem) => +toDoItem.id !== +event.target.dataset.itemid));
+        setToDoList(
+            toDoList.filter((toDoItem) => +toDoItem.id !== +event.target.parentElement.parentElement.dataset.itemid)
+        );
     };
 
     return (
@@ -66,8 +67,23 @@ function ToDoList({ data }) {
                     <Grid item xs={12} md={12}>
                         <Typography sx={{ mt: 4, mb: 2 }} variant="h2" component="div">
                             СПИСОК ДЕЛ:
-                            <AddBoxIcon fontSize={"large"} sx={{ width: 75 }} onClick={addToDoItem} />
+                            <AddBoxIcon fontSize={"large"} sx={{ width: 75 }} onClick={showInputBox} />
                         </Typography>
+                        <Box sx={{ display: inputBoxNewToDoItem }}>
+                            <TextField
+                                fullWidth
+                                id="outlined-basic"
+                                label="Новая задача"
+                                variant="outlined"
+                                value={newToDoItem}
+                                onChange={inputNewToDoItem}
+                            />
+                            <ButtonGroup variant="contained" aria-label="Basic button group">
+                                <Button onClick={addToDoItem}>Сохранить</Button>
+                                <Button onClick={clearNewToDoItem}>Очистить</Button>
+                                <Button onClick={hideInputBox}>Скрыть</Button>
+                            </ButtonGroup>
+                        </Box>
                         <Demo>
                             <List>
                                 {toDoList.map((toDoItem) => {
