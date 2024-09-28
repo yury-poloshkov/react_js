@@ -11,7 +11,7 @@ function App() {
     return (
         <div className="App">
             <TemperatureConverter />
-            <ToDoList comments={data} />
+            <ToDoList data={data} />
         </div>
     );
 }

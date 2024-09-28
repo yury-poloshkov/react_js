@@ -12,12 +12,12 @@ function CommentsList({ comments }) {
         <>
             <ul className="comments__title">Comments:</ul>
             {commentsList.map((comment) => (
-                <div className="comments__item">
-                    <li key={comment.id}>{comment.text}</li>
+                <li className="comments__item" key={comment.id}>
+                    <p>{comment.text}</p>
                     <button className="comments__button" onClick={deleteComment} data-keyid={comment.id}>
                         Delete comment {comment.id}
                     </button>
-                </div>
+                </li>
             ))}
         </>
     );
