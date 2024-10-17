@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/themeReducer";
 
 const MainPage = () => {
-    const theme = useSelector((state) => state.theme);
+    const { theme } = useSelector((state) => state.theme);
     const dispatch = useDispatch();
 
     return (

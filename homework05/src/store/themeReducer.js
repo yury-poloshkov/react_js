@@ -9,9 +9,10 @@ const initialState = {
 const themeReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_THEME:
-            return state.theme === "light" ? "dark" : "light";
+            console.log("action button pressed" + action.type + " " + state.theme);
+            return { ...state, theme: state.theme === "light" ? "dark" : "light" };
         default:
-            return state.theme;
+            return state;
     }
 };
 
