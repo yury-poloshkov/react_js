@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/themeReducer";
 
-export const MainPage = () => {
-    const theme = useSelector((state) => state.theme);
+const MainPage = () => {
+    const { theme } = useSelector((state) => state.theme);
     const dispatch = useDispatch();
 
-    console.log(theme);
+    console.log(theme + " from MainPage Coponent");
     return (
         <div className="App App-light">
             <header>
@@ -16,3 +16,5 @@ export const MainPage = () => {
         </div>
     );
 };
+
+export default MainPage;

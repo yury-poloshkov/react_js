@@ -6,8 +6,8 @@ const initialState = {
     theme: "light",
 };
 
-export const themeReducer = (state = initialState, action) => {
-    console.log(state.theme);
+const themeReducer = (state = initialState, action) => {
+    console.log(state.theme + " from themeReducer");
     switch (action.type) {
         case TOGGLE_THEME:
             return state.theme === "light" ? "dark" : "light";
@@ -15,3 +15,5 @@ export const themeReducer = (state = initialState, action) => {
             return state.theme;
     }
 };
+
+export default themeReducer;
